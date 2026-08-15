@@ -1,6 +1,6 @@
 .product-card {
   border: 1px solid var(--border-default);
-  border-radius: 16px;
+  border-radius: var(--radius-lg);
   overflow: hidden;
   background: var(--surface-base);
   text-align: left;
@@ -58,7 +58,7 @@
 
 .product-image-placeholder {
   color: var(--text-secondary);
-  font-size: 13px;
+  font-size: 12px; /* design-system.md §3 type scale — was 13px, off-scale */
 }
 
 .product-body {
@@ -96,7 +96,7 @@
   font-size: 12px;
   color: var(--text-secondary);
   background: var(--surface-subtle);
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   padding: 8px 10px;
   margin: 0 0 12px;
 }
@@ -111,11 +111,11 @@
 
 .product-price {
   font-weight: 700;
-  font-size: 15px;
+  font-size: 16px; /* design-system.md §3 numeral token — was 15px, off-scale */
   color: var(--text-primary);
 }
 
 .product-add-button {
-  padding: 0.5em 1.1em;
-  font-size: 13px;
+  padding: 8px 16px; /* design-system.md §5 spacing scale — was em-based */
+  font-size: 14px; /* design-system.md §3 type scale — was 13px, off-scale */
 }

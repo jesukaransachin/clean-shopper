@@ -45,6 +45,12 @@
   --space-48: 48px;
   --space-64: 64px;
 
+  /* Radius scale — design-system.md §4 "Radius scale" */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+
   /*
    * Shadows: intentionally not defined. design-system.md has no shadow
    * tokens — this system is flat/border-based by design (§1). Don't add

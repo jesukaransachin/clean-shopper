@@ -25,7 +25,7 @@ function SearchBar({
         event.preventDefault()
         onSubmit(value)
       }}
-      className="flex gap-[12px] bg-surface-subtle border border-border-default rounded-pill py-[6px] pr-[6px] pl-[20px]"
+      className="flex gap-[12px] bg-surface-subtle border border-border-default rounded-pill py-[8px] pr-[8px] pl-[20px]"
     >
       <input
         type="text"

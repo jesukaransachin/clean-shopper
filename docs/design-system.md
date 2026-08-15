@@ -50,7 +50,9 @@ Myntra pairs a heavy, condensed display weight for banners/promos with a clean g
 | Numerals / Price | Inter (tabular nums) | 700 | Prices, match scores |
 
 Base size 16px, scale ratio 1.25 (Major Third):
-`12 / 14 / 16 / 20 / 25 / 31 / 39px`
+`11 / 12 / 14 / 16 / 20 / 25 / 31 / 39px`
+
+`11px` is a deliberate sub-step below the base scale, reserved *only* for the small-caps pill role — badge labels (`SafetyBadge`), filter chips (`CategoryTag`), and the product-brand line. It's not a general-purpose "extra small" size; anything else needing to go smaller than 12px belongs in this same role or should use 12px instead.
 
 ---
 
@@ -60,6 +62,13 @@ Base size 16px, scale ratio 1.25 (Major Third):
 - **Primary:** solid `--brand-primary`, white text, fully rounded (pill), matches Myntra's rounded CTA style (`Her >`, `Him >` pill links).
 - **Secondary:** outline `--brand-primary`, transparent fill.
 - **Destructive:** `--accent-alert` outline, used only for "Remove from cart" / "Avoid this ingredient."
+
+### Radius scale
+Four tiers, formalized from what implementation had already settled on consistently before this was written down:
+- **`sm` (4px):** compact interactive chrome — nav-item hit areas, the logo button.
+- **`md` (8px):** small content blocks — the "why recommended" callout, cart line-item thumbnails, the skip-link's rounded corner.
+- **`lg` (16px):** cards and chat bubbles — Product Card's corner radius and Chat Bubble's corner radius are the same value, treated as one tier rather than two coincidentally-equal numbers.
+- **`pill` (999px):** buttons, badges, tags — anything that should read as fully rounded.
 
 ### Badges (direct borrow from Myntra's offer-pill pattern)
 Pill-shaped, small-caps label + icon. Kept deliberately small/quiet (11px text, 3px/9px padding, 1px border on the outline variant) so a card with several certifications doesn't visually shout — the badge should read as a quick scan-able tag, not a headline:
@@ -92,7 +101,7 @@ Top nav mirrors Myntra's structure — logo left, primary categories center (upp
 ## 5. Layout & Spacing
 
 - Base spacing unit: **8px**, scale: 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64
-- Max content width: 1200px, matching Myntra's contained (non-edge-to-edge) layout
+- Max content width: **1000px**. (Originally documented as 1200px, matching Myntra's contained layout, before any page existed to check it against. Every page built since — Home, Browse, Cart — converged independently on ~1000px because the actual content, a 2–3 column product grid and a single-column cart list, reads better narrower than a fashion e-commerce grid. 1200px is revised down to match reality rather than leaving three pages quietly ignoring the documented value.)
 - Generous card padding (16–24px) and whitespace between sections — Myntra's density comes from imagery, not tight spacing; Clean Shopper follows suit so ingredient/reasoning text has room to breathe
 
 ---

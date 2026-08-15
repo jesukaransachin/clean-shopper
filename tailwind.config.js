@@ -34,6 +34,10 @@ export default {
         body: ['16px', { fontWeight: '400' }], // Body
         label: ['12px', { fontWeight: '600', letterSpacing: '0.04em' }], // Labels / Badges
         numeral: ['16px', { fontWeight: '700' }], // Numerals / Price (tabular nums applied via font-variant-numeric utility where used)
+        // design-system.md §3's 11px sub-step — small-caps pill role only
+        // (SafetyBadge, CategoryTag, ProductCard's brand line). Not a
+        // general-purpose "extra small" size.
+        tag: ['11px', { fontWeight: '600' }],
       },
 
       // design-system.md §5: base unit 8px, scale 4/8/12/16/24/32/48/64.
@@ -51,17 +55,28 @@ export default {
         '64px': '64px',
       },
 
-      // design-system.md only states two concrete radius values anywhere
-      // in the doc: "fully rounded (pill)" for buttons/badges (§4 Buttons,
-      // Badges) and "rounded 16px corners" for the chat bubble (§4 Chat
-      // Bubbles). There is no general small/medium radius value documented
-      // — implementation CSS uses 8px/12px in places, but those aren't
-      // written down in design-system.md, so they're deliberately not
-      // included here. Add them to the spec first if they should become
-      // real tokens.
+      // design-system.md §4 "Radius scale" — four tiers, formalized from
+      // what implementation had already settled on consistently (was
+      // previously undocumented; see the audit note in git history for
+      // the discovery). `sm`/`md`/`lg` deliberately override Tailwind's
+      // own default radius scale (which would otherwise map `rounded-lg`
+      // to an unrelated 0.5rem/8px) so these class names mean exactly
+      // this system's values, not Tailwind's defaults.
       borderRadius: {
-        pill: '999px', // Buttons, Badges
-        bubble: '16px', // Chat Bubbles (also matches Product Card's corner radius in implementation, but the spec only names it for bubbles)
+        sm: '4px', // compact interactive chrome — nav items, logo button
+        md: '8px', // small content blocks — reason callout, thumbnails
+        lg: '16px', // cards, chat bubbles
+        pill: '999px', // Buttons, Badges, CategoryTag
+        bubble: '16px', // alias of `lg`, kept for semantic clarity in chat-specific code
+      },
+
+      // design-system.md §5: max content width, revised from the
+      // originally-documented 1200px down to 1000px to match what every
+      // page independently converged on. Named `content` rather than
+      // overriding Tailwind's own `maxWidth` scale wholesale, since this
+      // is one specific layout constant, not a general size scale.
+      maxWidth: {
+        content: '1000px',
       },
 
       // boxShadow deliberately NOT overridden: design-system.md defines no

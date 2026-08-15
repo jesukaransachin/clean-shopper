@@ -53,11 +53,21 @@ h1 {
   line-height: 1.1;
 }
 
+/*
+ * This is the fallback style any plain <button> gets if nothing else
+ * overrides it — it must itself be spec-compliant (design-system.md's
+ * Primary Button), not just "close enough," since it's what SearchBar's
+ * submit button and CartPage's Checkout button actually render with.
+ * Values match EmptyState's explicit primary-button classes exactly
+ * (px-[24px] py-[10px] text-[14px]) so both paths produce the same
+ * button. Previously em-based (0.7em 1.4em / 0.9em), which silently
+ * drifted from the design system's px-based spacing/type tokens.
+ */
 button {
   border-radius: 999px;
   border: none;
-  padding: 0.7em 1.4em;
-  font-size: 0.9em;
+  padding: 10px 24px;
+  font-size: 14px;
   font-weight: 600;
   font-family: inherit;
   background-color: var(--brand-primary);

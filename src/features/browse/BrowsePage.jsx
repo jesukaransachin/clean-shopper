@@ -25,7 +25,7 @@ function BrowsePage() {
   const { isSaved, toggleSaved } = useSavedProducts()
 
   return (
-    <main className="max-w-[1000px] mx-auto px-[32px] py-[48px]" id="main-content">
+    <main className="max-w-content mx-auto px-[32px] py-[48px]" id="main-content">
       <div className="mb-[32px]">
         <SearchBar value={query} onChange={setQuery} onSubmit={setSubmittedQuery} />
       </div>

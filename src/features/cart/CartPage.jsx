@@ -19,8 +19,8 @@ function CartPage({ onNavigate }) {
 
   if (status === 'loading') {
     return (
-      <main className="max-w-[900px] mx-auto px-[32px] py-[48px]" id="main-content">
-        <h1 className="text-[25px] font-bold mb-[24px]">Your Cart</h1>
+      <main className="max-w-content mx-auto px-[32px] py-[48px]" id="main-content">
+        <h1 className="text-heading mb-[24px]">Your Cart</h1>
         <p className="text-[14px] text-text-secondary text-center py-[64px]">Loading cart…</p>
       </main>
     )
@@ -28,8 +28,8 @@ function CartPage({ onNavigate }) {
 
   if (status === 'error') {
     return (
-      <main className="max-w-[900px] mx-auto px-[32px] py-[48px]" id="main-content">
-        <h1 className="text-[25px] font-bold mb-[24px]">Your Cart</h1>
+      <main className="max-w-content mx-auto px-[32px] py-[48px]" id="main-content">
+        <h1 className="text-heading mb-[24px]">Your Cart</h1>
         <EmptyState
           title="Couldn't load your cart."
           description="Check that the API server is running and try again."
@@ -40,8 +40,8 @@ function CartPage({ onNavigate }) {
 
   if (items.length === 0) {
     return (
-      <main className="max-w-[900px] mx-auto px-[32px] py-[48px]" id="main-content">
-        <h1 className="text-[25px] font-bold mb-[24px]">Your Cart</h1>
+      <main className="max-w-content mx-auto px-[32px] py-[48px]" id="main-content">
+        <h1 className="text-heading mb-[24px]">Your Cart</h1>
         <EmptyState
           title="Your cart is empty."
           description="Products you add will show up here."
@@ -53,16 +53,16 @@ function CartPage({ onNavigate }) {
   }
 
   return (
-    <main className="max-w-[900px] mx-auto px-[32px] py-[48px]" id="main-content">
-      <h1 className="text-[25px] font-bold mb-[24px]">Your Cart</h1>
+    <main className="max-w-content mx-auto px-[32px] py-[48px]" id="main-content">
+      <h1 className="text-heading mb-[24px]">Your Cart</h1>
 
       <ul className="flex flex-col gap-[16px] mb-[32px]" role="list">
         {items.map(({ product, quantity }) => (
           <li
             key={product.id}
-            className="flex items-center gap-[16px] border border-border-default rounded-[16px] p-[16px]"
+            className="flex items-center gap-[16px] border border-border-default rounded-lg p-[16px]"
           >
-            <div className="w-[64px] h-[64px] flex-shrink-0 rounded-[8px] overflow-hidden bg-surface-subtle">
+            <div className="w-[64px] h-[64px] flex-shrink-0 rounded-md overflow-hidden bg-surface-subtle">
               {product.image ? (
                 <img
                   src={assetUrl(product.image)}
@@ -81,7 +81,7 @@ function CartPage({ onNavigate }) {
               <p className="text-[14px] font-semibold text-text-primary m-0 truncate">
                 {product.name}
               </p>
-              <p className="text-[13px] text-text-secondary m-0">{product.price} each</p>
+              <p className="text-[12px] text-text-secondary m-0">{product.price} each</p>
             </div>
 
             <Stepper
@@ -91,7 +91,7 @@ function CartPage({ onNavigate }) {
               label={product.name}
             />
 
-            <span className="text-[15px] font-bold text-text-primary w-[64px] text-right">
+            <span className="text-numeral text-text-primary w-[64px] text-right">
               {formatCents(product.priceCents * quantity)}
             </span>
 
@@ -99,7 +99,7 @@ function CartPage({ onNavigate }) {
               type="button"
               onClick={() => removeItem(product.id)}
               aria-label={`Remove ${product.name} from cart`}
-              className="text-[13px] font-semibold text-accent-alert bg-transparent hover:underline p-0"
+              className="text-[12px] font-semibold text-accent-alert bg-transparent hover:underline p-0"
             >
               Remove
             </button>
