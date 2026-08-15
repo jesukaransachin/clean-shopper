@@ -1,6 +1,6 @@
 # Clean Shopper — Backend (local setup)
 
-A small Express API in `server/`, backed by Supabase (hosted Postgres). Serves product data to `Home.jsx` and `BrowsePage.jsx`, and persists the cart and saved products, via `src/lib/api.js`.
+A small Express API in `server/`, backed by Supabase (hosted Postgres). Serves product data to `BrowsePage.jsx` (the app's landing page — `Home.jsx` was removed), and persists the cart and saved products, via `src/lib/api.js`.
 
 ## First-time setup
 
@@ -37,7 +37,7 @@ If you run `npm run dev:server` (or `npm run dev`) before step 3–4 above, the 
 Missing Supabase credentials.
 Copy server/.env.example to server/.env and fill in your Supabase project's URL and service-role key (Project Settings → API).
 ```
-This is intentional — a clear failure, not a silent broken start. The frontend will still run, but `Home.jsx`/`BrowsePage.jsx`/`CartPage.jsx` will show a "Couldn't load" state until the server is actually reachable.
+This is intentional — a clear failure, not a silent broken start. The frontend will still run, but `BrowsePage.jsx`/`CartPage.jsx` will show a "Couldn't load" state until the server is actually reachable.
 
 If you've run `schema.sql` but not yet `schema-cart.sql`/`schema-saved-products.sql`, cart or saved-products requests will fail with a Postgres "relation does not exist" error surfaced as a 500 — run the missing migration file.
 

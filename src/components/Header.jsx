@@ -24,7 +24,7 @@ function Header({ activePage, onNavigate }) {
         <button
           type="button"
           className="app-logo-button"
-          onClick={() => onNavigate('home')}
+          onClick={() => onNavigate('browse')}
           aria-label="Clean Shopper home"
         >
           <img src={logo} className="app-logo" alt="" />

@@ -41,7 +41,7 @@ Every color value below is a `var(--token-name)` — none are hardcoded. Spacing
 | `quantity` | `number` | No | Defaults to `0`. `0` renders the "Add to Cart" button; `>0` renders a `Stepper` in its place |
 | `onIncrement` / `onDecrement` | `() => void` | No | Called by the `Stepper` once `quantity > 0`. Decrementing from `1` is expected to remove the item (handled by the cart state, not this component) |
 | `saved` | `boolean` | No | Defaults to `false`. Added for the Browse page's "Save to List" toggle |
-| `onToggleSave` | `() => void` | No | If omitted, the save button doesn't render at all (e.g. it's absent on Home's sample cards, present on Browse's) |
+| `onToggleSave` | `() => void` | No | Currently always passed — `BrowsePage` (the app's landing page, since `Home.jsx` was removed) is the only screen that renders `ProductCard` |
 
 **Note:** the cart quantity/stepper behavior was added alongside the Cart feature (`src/lib/CartContext.jsx`, `src/features/cart/CartPage.jsx`) and a new `Stepper` component (`src/components/Stepper.jsx`) — not yet formally specced in this document with its own section. Backfill if it needs a second design pass.
 
@@ -100,7 +100,7 @@ Every color value below is a `var(--token-name)` — none are hardcoded. Spacing
 ---
 
 ## 3. SearchBar
-**Status:** ✅ Implemented — `src/components/SearchBar.jsx`, built with Tailwind utility classes. Used on both `Home.jsx` (replacing its former inline chat-composer markup) and `BrowsePage.jsx`. Two spec values (20px left padding, 14px font) have no matching Tailwind token — see the comment at the top of the file. Not wired to a real search/research backend — there isn't one yet; `onSubmit` receives the current value and the caller decides what to do with it.
+**Status:** ✅ Implemented — `src/components/SearchBar.jsx`, built with Tailwind utility classes. Used on `BrowsePage.jsx` (the app's landing page — `Home.jsx`, which also used to render this, was removed). Two spec values (20px left padding, 14px font) have no matching Tailwind token — see the comment at the top of the file. Wired to a real keyword search against product name/brand (`server/routes/products.js`'s `?search=` param), not just navigation.
 
 **Purpose:** Freeform entry point for describing what the user is looking for, submitted to start a research/chat turn.
 
@@ -275,7 +275,7 @@ Currently **none** — `Header` takes no props; nav items are a hardcoded `NAV_I
 | `onAction` | `() => void` | No | |
 
 ### Visual structure
-- Root: centered column, `text-align: center`, generous vertical padding (`64px` per the spacing scale's top tier used elsewhere for hero sections — see `.hero` in `Home.css` using `96px`; `EmptyState` is a secondary moment, not a hero, so the next tier down, `64px`, is more appropriate) — **not yet a token, literal value**
+- Root: centered column, `text-align: center`, generous vertical padding (`64px` per the spacing scale's top tier used elsewhere for hero-scale moments; `EmptyState` is a secondary moment, not a hero, so the next tier down, `64px`, is more appropriate) — **not yet a token, literal value**
 - Title: `font-size: 16px`, `font-weight: 700`, `color: var(--text-primary)` (matches the weight/size used for `.product-name` and `.feature-row-text h3` — this system's convention for a small-headline moment)
 - Description: `font-size: 13px`, `color: var(--text-secondary)`, `margin-top: 4px`
 - Action button: standard primary `Button`, `margin-top: 16px`

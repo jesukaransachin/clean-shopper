@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { fetchProducts } from './api'
 
-// Shared data-fetching hook — used by both Home.jsx and BrowsePage.jsx so
-// neither duplicates the same fetch/loading/error boilerplate.
+// Data-fetching hook for BrowsePage — the app's landing page (Home.jsx
+// was removed once Browse became the sole entry point).
 //
 // Refetches whenever `category` or `search` changes, calling the real
 // /api/products?category=...&search=... endpoint server-side (rather than
