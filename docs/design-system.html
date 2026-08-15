@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clean Shopper — Design System</title>
+<style>
+  :root {
+    --brand-primary: #2F6B4F;
+    --brand-primary-dark: #1F4A36;
+    --brand-gradient-start: #2F6B4F;
+    --brand-gradient-end: #E08A3C;
+    --accent-verified: #1B7F5C;
+    --accent-alert: #C0392B;
+    --surface-base: #FFFFFF;
+    --surface-subtle: #F7F5F0;
+    --surface-sunken: #EFEBE2;
+    --text-primary: #1A1A17;
+    --text-secondary: #5C5A52;
+    --text-inverse: #FFFFFF;
+    --border-default: #E4E0D6;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--surface-base);
+    color: var(--text-primary);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    line-height: 1.5;
+  }
+
+  .top-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 32px;
+    border-bottom: 1px solid var(--border-default);
+  }
+
+  .logo {
+    font-weight: 800;
+    font-size: 22px;
+    background: linear-gradient(135deg, var(--brand-gradient-start), var(--brand-gradient-end));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-links li {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-primary);
+    cursor: default;
+  }
+
+  .nav-search {
+    flex: 1;
+    max-width: 360px;
+    margin: 0 32px;
+    padding: 10px 16px;
+    background: var(--surface-subtle);
+    border: 1px solid var(--border-default);
+    border-radius: 999px;
+    color: var(--text-secondary);
+    font-size: 14px;
+  }
+
+  .nav-icons {
+    display: flex;
+    gap: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 48px 32px 96px;
+  }
+
+  section {
+    margin-bottom: 72px;
+  }
+
+  section > h2 {
+    font-size: 25px;
+    font-weight: 700;
+    margin: 0 0 8px;
+  }
+
+  section > p.section-desc {
+    color: var(--text-secondary);
+    font-size: 15px;
+    margin: 0 0 32px;
+    max-width: 720px;
+  }
+
+  h1.hero {
+    font-size: 39px;
+    font-weight: 800;
+    margin: 0 0 8px;
+  }
+
+  p.hero-sub {
+    color: var(--text-secondary);
+    font-size: 16px;
+    margin: 0 0 40px;
+  }
+
+  /* Color swatches */
+  .swatch-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+  }
+
+  .swatch {
+    border: 1px solid var(--border-default);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .swatch-color {
+    height: 72px;
+  }
+
+  .swatch-info {
+    padding: 12px 14px;
+    background: var(--surface-base);
+  }
+
+  .swatch-info .name {
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .swatch-info .hex {
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-family: 'SF Mono', Menlo, monospace;
+  }
+
+  .swatch-info .usage {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+  }
+
+  /* Typography */
+  .type-row {
+    display: flex;
+    align-items: baseline;
+    gap: 24px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border-default);
+  }
+
+  .type-row .label {
+    width: 160px;
+    flex-shrink: 0;
+    font-size: 12px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .type-display { font-size: 39px; font-weight: 800; }
+  .type-heading { font-size: 25px; font-weight: 700; }
+  .type-body { font-size: 16px; font-weight: 400; }
+  .type-label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+
+  /* Buttons */
+  .btn-row { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 24px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    cursor: default;
+  }
+
+  .btn-primary { background: var(--brand-primary); color: var(--text-inverse); }
+  .btn-secondary { background: transparent; color: var(--brand-primary); border: 1.5px solid var(--brand-primary); }
+  .btn-destructive { background: transparent; color: var(--accent-alert); border: 1.5px solid var(--accent-alert); }
+
+  /* Badges */
+  .badge-row { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    padding: 3px 9px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+
+  .badge-verified { background: var(--accent-verified); color: var(--text-inverse); }
+  .badge-alert { background: var(--accent-alert); color: var(--text-inverse); }
+  .badge-trusted { background: transparent; color: var(--text-primary); border: 1px solid var(--brand-primary); }
+
+  /* Product card */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+  }
+
+  .product-card {
+    border: 1px solid var(--border-default);
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--surface-base);
+  }
+
+  .product-image {
+    height: 160px;
+    background: linear-gradient(135deg, var(--surface-subtle), var(--surface-sunken));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    font-size: 13px;
+  }
+
+  .product-body { padding: 16px; }
+
+  .product-brand {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+  }
+
+  .product-name {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .product-badge { margin-bottom: 10px; }
+
+  .product-reason {
+    font-size: 12px;
+    color: var(--text-secondary);
+    background: var(--surface-subtle);
+    border-radius: 8px;
+    padding: 8px 10px;
+    margin-bottom: 10px;
+  }
+
+  .product-price {
+    font-weight: 700;
+    font-size: 15px;
+  }
+
+  /* Chat bubbles */
+  .chat-demo {
+    max-width: 520px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .bubble {
+    padding: 12px 16px;
+    border-radius: 16px;
+    font-size: 14px;
+    max-width: 80%;
+  }
+
+  .bubble-agent {
+    background: var(--surface-subtle);
+    align-self: flex-start;
+    border-bottom-left-radius: 4px;
+  }
+
+  .bubble-user {
+    background: rgba(47, 107, 79, 0.1);
+    align-self: flex-end;
+    border-bottom-right-radius: 4px;
+    text-align: right;
+  }
+
+  /* Feature list */
+  .feature-list {
+    max-width: 480px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .feature-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 12px;
+    border-radius: 12px;
+  }
+  .feature-row:hover { background: var(--surface-subtle); }
+  .feature-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: var(--surface-subtle);
+    color: var(--brand-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+  .feature-row-text h3 { font-size: 14px; font-weight: 700; margin: 0; }
+  .feature-row-text p { font-size: 12.5px; color: var(--text-secondary); margin: 2px 0 0; }
+
+  /* Spacing scale */
+  .space-row { display: flex; align-items: flex-end; gap: 12px; flex-wrap: wrap; }
+  .space-block { background: var(--brand-primary); border-radius: 4px; }
+  .space-label { font-size: 11px; color: var(--text-secondary); text-align: center; margin-top: 6px; }
+  .space-item { display: flex; flex-direction: column; align-items: center; }
+
+  footer {
+    text-align: center;
+    padding: 32px;
+    color: var(--text-secondary);
+    font-size: 12px;
+    border-top: 1px solid var(--border-default);
+  }
+</style>
+</head>
+<body>
+
+  <nav class="top-nav">
+    <img src="../public/logo.svg" alt="Clean Shopper" style="height: 32px;">
+    <ul class="nav-links">
+      <li>Research</li>
+      <li>Preferences</li>
+      <li>Cart</li>
+      <li>Compare</li>
+    </ul>
+    <input class="nav-search" placeholder="Search for products, ingredients and brands" disabled>
+    <div class="nav-icons">
+      <span>Profile</span>
+      <span>Saved</span>
+      <span>Cart</span>
+    </div>
+  </nav>
+
+  <main>
+    <h1 class="hero">Design System</h1>
+    <p class="hero-sub">Reference styleguide for Clean Shopper — inspired by myntra.com's structural patterns (color-blocking, pill badges, uppercase nav), reinterpreted for a trust-first, conversational product.</p>
+
+    <section>
+      <h2>Logo</h2>
+      <p class="section-desc">Monogram "C" with a sprout leaf tucked into the opening — reads as both a brand initial and a nod to "clean/natural." Gradient runs brand green to amber, matching the palette below.</p>
+      <div class="swatch-grid">
+        <div class="swatch">
+          <div class="swatch-color" style="background: var(--surface-base); display:flex; align-items:center; justify-content:center;">
+            <img src="../public/logo.svg" alt="Clean Shopper full logo" style="height: 40px;">
+          </div>
+          <div class="swatch-info"><div class="name">Full Lockup</div><div class="usage">public/logo.svg — header, marketing surfaces</div></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background: var(--surface-base); display:flex; align-items:center; justify-content:center;">
+            <img src="../public/logo-mark.svg" alt="Clean Shopper mark" style="height: 56px;">
+          </div>
+          <div class="swatch-info"><div class="name">Mark Only</div><div class="usage">public/logo-mark.svg — favicon, app icon, small spaces</div></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background: var(--text-primary); display:flex; align-items:center; justify-content:center;">
+            <img src="../public/logo-mark.svg" alt="Clean Shopper mark on dark" style="height: 56px;">
+          </div>
+          <div class="swatch-info"><div class="name">On Dark</div><div class="usage">Holds up on dark surfaces / dark mode</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Color Palette</h2>
+      <p class="section-desc">Saturated color is used as a signal, not decoration. Green means verified; red means an avoided ingredient was found.</p>
+      <div class="swatch-grid">
+        <div class="swatch">
+          <div class="swatch-color" style="background: var(--brand-primary)"></div>
+          <div class="swatch-info"><div class="name">Brand Primary</div><div class="hex">#2F6B4F</div><div class="usage">Buttons, links, logo</div></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background: var(--brand-primary-dark)"></div>
+          <div class="swatch-info"><div class="name">Brand Primary Dark</div><div class="hex">#1F4A36</div><div class="usage">Hover / pressed states</div></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background: linear-gradient(135deg, var(--brand-gradient-start), var(--brand-gradient-end))"></div>
+          <div class="swatch-info"><div class="name">Brand Gradient</div><div class="hex">#2F6B4F → #E08A3C</div><div class="usage">Wordmark / logo</div></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background: var(--accent-verified)"></div>
+          <div class="swatch-info"><div class="name">Accent Verified</div><div class="hex">#1B7F5C</div><div class="usage">Verified / certified badges only</div></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background: var(--accent-alert)"></div>
+          <div class="swatch-info"><div class="name">Accent Alert</div><div class="hex">#C0392B</div><div class="usage">Ingredient warnings</div></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background: var(--surface-subtle)"></div>
+          <div class="swatch-info"><div class="name">Surface Subtle</div><div class="hex">#F7F5F0</div><div class="usage">Cards, agent chat bubble</div></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background: var(--surface-sunken)"></div>
+          <div class="swatch-info"><div class="name">Surface Sunken</div><div class="hex">#EFEBE2</div><div class="usage">Inputs, dividers</div></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background: var(--text-primary)"></div>
+          <div class="swatch-info"><div class="name">Text Primary</div><div class="hex">#1A1A17</div><div class="usage">Body / headings</div></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background: var(--text-secondary)"></div>
+          <div class="swatch-info"><div class="name">Text Secondary</div><div class="hex">#5C5A52</div><div class="usage">Metadata, labels</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Typography</h2>
+      <p class="section-desc">Inter throughout, two-tier system: heavy display weight for headlines/hero moments, clean body weight for chat and descriptions.</p>
+      <div class="type-row"><div class="label">Display / 800</div><div class="type-display">Best Match: Aura Home</div></div>
+      <div class="type-row"><div class="label">Heading / 700</div><div class="type-heading">Product Comparison</div></div>
+      <div class="type-row"><div class="label">Body / 400–500</div><div class="type-body">Clean Shopper researches options, evaluates ingredients against clean standards, and surfaces recommendations with reasoning.</div></div>
+      <div class="type-row"><div class="label">Label / 600 caps</div><div class="type-label">EWG Verified</div></div>
+    </section>
+
+    <section>
+      <h2>Buttons</h2>
+      <p class="section-desc">Fully rounded pill shape, mirroring Myntra's CTA style.</p>
+      <div class="btn-row">
+        <button class="btn btn-primary">Add to Cart</button>
+        <button class="btn btn-secondary">Compare</button>
+        <button class="btn btn-destructive">Remove</button>
+      </div>
+    </section>
+
+    <section>
+      <h2>Badges</h2>
+      <p class="section-desc">Reserved vocabulary — each color means one thing, consistently.</p>
+      <div class="badge-row">
+        <span class="badge badge-verified">✓ EWG Verified</span>
+        <span class="badge badge-alert">⚠ Contains Avoided Ingredient</span>
+        <span class="badge badge-trusted">Trusted Brand</span>
+      </div>
+    </section>
+
+    <section>
+      <h2>Product Cards</h2>
+      <p class="section-desc">Image-forward, with a "why recommended" reasoning line unique to Clean Shopper.</p>
+      <div class="card-grid">
+        <div class="product-card">
+          <div class="product-image">Product Image</div>
+          <div class="product-body">
+            <div class="product-brand">Aura Home</div>
+            <div class="product-name">All-Purpose Cleaner, Lemon Verbena</div>
+            <div class="product-badge"><span class="badge badge-verified">✓ EWG Verified</span></div>
+            <div class="product-reason">Matches your preference for fragrance-free, plant-based formulas.</div>
+            <div class="product-price">$12.99</div>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-image">Product Image</div>
+          <div class="product-body">
+            <div class="product-brand">Prairie & Co.</div>
+            <div class="product-name">Dish Soap Concentrate</div>
+            <div class="product-badge"><span class="badge badge-alert">⚠ Contains Sulfates</span></div>
+            <div class="product-reason">Flagged: contains an ingredient on your avoid list.</div>
+            <div class="product-price">$8.49</div>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-image">Product Image</div>
+          <div class="product-body">
+            <div class="product-brand">Root & Bloom</div>
+            <div class="product-name">Glass Cleaner Refill</div>
+            <div class="product-badge"><span class="badge badge-trusted">Trusted Brand</span></div>
+            <div class="product-reason">From a brand you've saved as trusted.</div>
+            <div class="product-price">$9.99</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Chat Bubbles</h2>
+      <p class="section-desc">Primary interaction surface — product cards and badges embed inline within agent responses.</p>
+      <div class="chat-demo">
+        <div class="bubble bubble-user">Find me a non-toxic dish soap without sulfates</div>
+        <div class="bubble bubble-agent">Here are 3 options that match your saved preferences, ranked by fit.</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Feature List</h2>
+      <p class="section-desc">Compact single-column rows, chosen over a card grid to keep secondary/explainer content from taking up too much space above the fold. Icons are decorative (aria-hidden) — title + description alone carry the meaning.</p>
+      <div class="feature-list">
+        <div class="feature-row">
+          <span class="feature-icon">✓</span>
+          <div class="feature-row-text">
+            <h3>Product research</h3>
+            <p>Ingredient-checked recommendations with reasoning.</p>
+          </div>
+        </div>
+        <div class="feature-row">
+          <span class="feature-icon">♥</span>
+          <div class="feature-row-text">
+            <h3>Preference management</h3>
+            <p>Saved and applied automatically to every result.</p>
+          </div>
+        </div>
+        <div class="feature-row">
+          <span class="feature-icon">🛒</span>
+          <div class="feature-row-text">
+            <h3>Shopping cart</h3>
+            <p>Persists across sessions.</p>
+          </div>
+        </div>
+        <div class="feature-row">
+          <span class="feature-icon">⇄</span>
+          <div class="feature-row-text">
+            <h3>Comparison</h3>
+            <p>Side by side, matched to your preferences.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Spacing Scale</h2>
+      <p class="section-desc">Base unit 8px. Generous padding throughout — density comes from imagery, not tight spacing.</p>
+      <div class="space-row">
+        <div class="space-item"><div class="space-block" style="width:4px; height:4px;"></div><div class="space-label">4</div></div>
+        <div class="space-item"><div class="space-block" style="width:8px; height:8px;"></div><div class="space-label">8</div></div>
+        <div class="space-item"><div class="space-block" style="width:12px; height:12px;"></div><div class="space-label">12</div></div>
+        <div class="space-item"><div class="space-block" style="width:16px; height:16px;"></div><div class="space-label">16</div></div>
+        <div class="space-item"><div class="space-block" style="width:24px; height:24px;"></div><div class="space-label">24</div></div>
+        <div class="space-item"><div class="space-block" style="width:32px; height:32px;"></div><div class="space-label">32</div></div>
+        <div class="space-item"><div class="space-block" style="width:48px; height:48px;"></div><div class="space-label">48</div></div>
+        <div class="space-item"><div class="space-block" style="width:64px; height:64px;"></div><div class="space-label">64</div></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>Clean Shopper Design System v1.0 — see docs/design-system.md for full rationale</footer>
+
+</body>
+</html>

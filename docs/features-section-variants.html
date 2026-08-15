@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Clean Shopper — "What Clean Shopper does" Variants</title>
+<style>
+  :root {
+    --brand-primary: #2F6B4F;
+    --brand-primary-dark: #1F4A36;
+    --accent-verified: #1B7F5C;
+    --surface-subtle: #F7F5F0;
+    --surface-sunken: #EFEBE2;
+    --border-default: #E4E0D6;
+    --text-primary: #1A1A17;
+    --text-secondary: #5C5A52;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #fff;
+    font-family: 'Inter', -apple-system, 'Segoe UI', sans-serif;
+    color: var(--text-primary);
+    padding: 48px 32px 96px;
+  }
+  .variant {
+    max-width: 900px;
+    margin: 0 auto 72px;
+    border: 1px solid var(--border-default);
+    border-radius: 16px;
+    padding: 40px 32px;
+  }
+  .variant-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--brand-primary);
+    margin: 0 0 4px;
+  }
+  .variant-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin: 0 0 28px;
+  }
+  h2 {
+    font-size: 22px;
+    font-weight: 700;
+    text-align: center;
+    margin: 0 0 24px;
+  }
+
+  /* A: current card grid */
+  .a-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .a-card {
+    background: var(--surface-subtle);
+    border-radius: 16px;
+    padding: 20px;
+  }
+  .a-card h3 { font-size: 15px; font-weight: 700; margin: 0 0 6px; }
+  .a-card p { font-size: 13px; color: var(--text-secondary); margin: 0; }
+
+  /* B: numbered horizontal steps */
+  .b-steps {
+    display: flex;
+    gap: 0;
+  }
+  .b-step {
+    flex: 1;
+    position: relative;
+    padding: 0 16px;
+    text-align: center;
+  }
+  .b-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 18px;
+    right: -8px;
+    width: calc(100% - 20px);
+    height: 1px;
+    background: var(--border-default);
+  }
+  .b-num {
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+    background: var(--brand-primary);
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 12px;
+    position: relative;
+    z-index: 1;
+  }
+  .b-step h3 { font-size: 13px; font-weight: 700; margin: 0 0 6px; }
+  .b-step p { font-size: 12px; color: var(--text-secondary); margin: 0; }
+
+  /* C: compact icon rows (single column, tighter) */
+  .c-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .c-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 12px;
+    border-radius: 12px;
+  }
+  .c-row:hover { background: var(--surface-subtle); }
+  .c-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: var(--surface-subtle);
+    color: var(--brand-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+  .c-row-text { display: flex; flex-direction: column; }
+  .c-row h3 { font-size: 14px; font-weight: 700; margin: 0; }
+  .c-row p { font-size: 12.5px; color: var(--text-secondary); margin: 2px 0 0; }
+
+  /* D: inline pill tabs + single detail panel */
+  .d-tabs {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  .d-tab {
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    background: var(--surface-subtle);
+    color: var(--text-primary);
+    border: none;
+  }
+  .d-tab.active {
+    background: var(--brand-primary);
+    color: #fff;
+  }
+  .d-panel {
+    background: var(--surface-subtle);
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+  }
+  .d-panel p { font-size: 14px; color: var(--text-secondary); margin: 0; max-width: 480px; margin: 0 auto; }
+</style>
+</head>
+<body>
+
+  <h1 style="text-align:center; font-size:26px; font-weight:800;">"What Clean Shopper does" — Section Variants</h1>
+  <p style="text-align:center; color:var(--text-secondary); max-width:600px; margin: 0 auto 48px;">Same four features (Product research, Preference management, Shopping cart, Comparison), four different presentations. Pick the one that fits the page best.</p>
+
+  <div class="variant">
+    <p class="variant-label">Variant A — Current: 2×2 card grid</p>
+    <p class="variant-desc">Equal-weight tiles, each its own block. Most scannable but takes the most vertical space.</p>
+    <h2>What Clean Shopper does</h2>
+    <div class="a-grid">
+      <div class="a-card"><h3>Product research</h3><p>Describe what you need, get ingredient-checked recommendations with reasoning.</p></div>
+      <div class="a-card"><h3>Preference management</h3><p>Save avoided ingredients, trusted brands, and certifications — applied automatically.</p></div>
+      <div class="a-card"><h3>Shopping cart</h3><p>Add recommendations to a cart that persists across sessions.</p></div>
+      <div class="a-card"><h3>Comparison</h3><p>Compare products side by side, matched to your preferences.</p></div>
+    </div>
+  </div>
+
+  <div class="variant">
+    <p class="variant-label">Variant B — Numbered horizontal steps</p>
+    <p class="variant-desc">Frames the four features as a sequence/flow (research → save prefs → cart → compare). Compact height, reads left to right.</p>
+    <h2>How it works</h2>
+    <div class="b-steps">
+      <div class="b-step"><div class="b-num">1</div><h3>Product research</h3><p>Ingredient-checked recommendations with reasoning.</p></div>
+      <div class="b-step"><div class="b-num">2</div><h3>Preferences</h3><p>Saved and applied automatically.</p></div>
+      <div class="b-step"><div class="b-num">3</div><h3>Cart</h3><p>Persists across sessions.</p></div>
+      <div class="b-step"><div class="b-num">4</div><h3>Comparison</h3><p>Side by side, matched to you.</p></div>
+    </div>
+  </div>
+
+  <div class="variant">
+    <p class="variant-label">Variant C — Compact icon rows</p>
+    <p class="variant-desc">Single column, tightest vertical footprint of all four. Good if this section needs to feel secondary to the hero/chat composer above it.</p>
+    <h2>What Clean Shopper does</h2>
+    <div class="c-list">
+      <div class="c-row"><div class="c-icon">✓</div><div class="c-row-text"><h3>Product research</h3><p>Ingredient-checked recommendations with reasoning.</p></div></div>
+      <div class="c-row"><div class="c-icon">♥</div><div class="c-row-text"><h3>Preference management</h3><p>Saved and applied automatically to every result.</p></div></div>
+      <div class="c-row"><div class="c-icon">🛒</div><div class="c-row-text"><h3>Shopping cart</h3><p>Persists across sessions.</p></div></div>
+      <div class="c-row"><div class="c-icon">⇄</div><div class="c-row-text"><h3>Comparison</h3><p>Side by side, matched to your preferences.</p></div></div>
+    </div>
+  </div>
+
+  <div class="variant">
+    <p class="variant-label">Variant D — Pill tabs with single detail panel</p>
+    <p class="variant-desc">Most compact and interactive — one feature shown at a time. Needs a click/tap to explore, so best if screen space is tight and you're OK trading discoverability for footprint.</p>
+    <h2>What Clean Shopper does</h2>
+    <div class="d-tabs">
+      <button class="d-tab active">Product research</button>
+      <button class="d-tab">Preferences</button>
+      <button class="d-tab">Cart</button>
+      <button class="d-tab">Comparison</button>
+    </div>
+    <div class="d-panel">
+      <p>Describe what you need, get ingredient-checked recommendations with reasoning.</p>
+    </div>
+  </div>
+
+</body>
+</html>

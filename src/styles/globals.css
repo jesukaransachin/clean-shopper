@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Design tokens from docs/design-system.md, registered as CSS custom
+ * properties so they're available anywhere in the app — not just to
+ * Tailwind utility classes generated from tailwind.config.js.
+ *
+ * Values here must stay in sync with tailwind.config.js and
+ * src/lib/tokens.js. All three are generated from the same source
+ * (design-system.md) but are not auto-derived from one another.
+ */
+:root {
+  /* Colors — design-system.md §2 */
+  --brand-primary: #2F6B4F;
+  --brand-primary-dark: #1F4A36;
+  --brand-gradient-start: #2F6B4F;
+  --brand-gradient-end: #E08A3C;
+  --accent-verified: #1B7F5C;
+  --accent-alert: #C0392B;
+  --surface-base: #FFFFFF;
+  --surface-subtle: #F7F5F0;
+  --surface-sunken: #EFEBE2;
+  --text-primary: #1A1A17;
+  --text-secondary: #5C5A52;
+  --text-inverse: #FFFFFF;
+  --border-default: #E4E0D6;
+
+  /* Fonts — design-system.md §3 */
+  --font-sans: 'Inter', sans-serif;
+  --text-display: 39px;
+  --text-heading: 25px;
+  --text-body: 16px;
+  --text-label: 12px;
+  --text-numeral: 16px;
+
+  /* Spacing — design-system.md §5 (base unit 8px) */
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-48: 48px;
+  --space-64: 64px;
+
+  /*
+   * Shadows: intentionally not defined. design-system.md has no shadow
+   * tokens — this system is flat/border-based by design (§1). Don't add
+   * --shadow-* variables here without adding them to design-system.md
+   * first.
+   */
+}

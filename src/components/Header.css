@@ -1,0 +1,99 @@
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 32px;
+  border-bottom: 1px solid var(--border-default);
+}
+
+.app-logo {
+  height: 32px;
+  display: block;
+}
+
+.app-logo-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.app-logo-button:focus-visible {
+  outline: 2px solid var(--brand-primary-dark);
+  outline-offset: 2px;
+}
+
+.app-nav {
+  display: flex;
+  gap: 28px;
+}
+
+.app-nav button {
+  background: none;
+  border: none;
+  padding: 4px 2px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.app-nav button:hover {
+  color: var(--brand-primary);
+  background: none;
+}
+
+.app-nav button:focus-visible {
+  outline: 2px solid var(--brand-primary-dark);
+  outline-offset: 2px;
+}
+
+.app-nav button[aria-current='page'] {
+  color: var(--brand-primary);
+}
+
+.app-nav button[aria-disabled='true'] {
+  color: var(--text-secondary);
+  cursor: default;
+}
+
+.app-nav button[aria-disabled='true']:hover {
+  color: var(--text-secondary);
+}
+
+.app-nav-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  margin-left: 4px;
+  border-radius: 999px;
+  background: var(--brand-primary);
+  color: var(--text-inverse);
+  font-size: 10px;
+  font-weight: 700;
+  vertical-align: middle;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  padding: 12px 20px;
+  background: var(--brand-primary);
+  color: var(--text-inverse);
+  font-weight: 600;
+  border-radius: 0 0 8px 0;
+}
+
+.skip-link:focus {
+  left: 0;
+}

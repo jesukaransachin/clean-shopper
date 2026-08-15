@@ -1,0 +1,28 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.badge-verified {
+  background: var(--accent-verified);
+  color: var(--text-inverse);
+}
+
+.badge-alert {
+  background: var(--accent-alert);
+  color: var(--text-inverse);
+}
+
+.badge-trusted {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--brand-primary);
+}
