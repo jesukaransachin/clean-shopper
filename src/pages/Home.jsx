@@ -8,7 +8,10 @@ import './Home.css'
 
 function Home() {
   const [query, setQuery] = useState('')
-  const { products, status } = useProducts()
+  // Only updates on SearchBar's onSubmit (not every keystroke), so the API
+  // call fires once per search rather than per character typed.
+  const [submittedQuery, setSubmittedQuery] = useState('')
+  const { products, status } = useProducts({ search: submittedQuery })
   const { getQuantity, addToCart, incrementItem, decrementItem } = useCart()
 
   return (
@@ -22,7 +25,7 @@ function Home() {
           lists yourself.
         </p>
 
-        <SearchBar value={query} onChange={setQuery} onSubmit={() => {}} />
+        <SearchBar value={query} onChange={setQuery} onSubmit={setSubmittedQuery} />
       </section>
 
       <section className="sample">
@@ -41,7 +44,14 @@ function Home() {
           />
         )}
 
-        {status === 'ready' && (
+        {status === 'ready' && products.length === 0 && (
+          <EmptyState
+            title="No matches found."
+            description={`Nothing matched "${submittedQuery}". Try a different brand or product name.`}
+          />
+        )}
+
+        {status === 'ready' && products.length > 0 && (
           <div className="card-grid">
             {products.map((product) => (
               <ProductCard

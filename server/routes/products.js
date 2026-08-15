@@ -28,11 +28,11 @@ const SELECT = `
   )
 `
 
-// GET /api/products?category=Personal+Care
+// GET /api/products?category=Personal+Care&search=lemon
 router.get('/products', async (req, res) => {
   let query = supabase.from('products').select(SELECT).order('id')
 
-  const { category } = req.query
+  const { category, search } = req.query
   if (category) {
     query = query.eq('category', category)
   }
@@ -43,7 +43,20 @@ router.get('/products', async (req, res) => {
     return res.status(500).json({ error: 'Failed to load products' })
   }
 
-  res.json(data.map(formatProduct))
+  let products = data.map(formatProduct)
+
+  // Simple keyword match against name/brand, done in JS rather than a
+  // Postgrest OR-across-joined-tables filter — the catalog is ~27 rows,
+  // not worth the query complexity at this scale. Revisit if the catalog
+  // grows enough that this becomes a real cost.
+  if (search) {
+    const term = search.toLowerCase()
+    products = products.filter(
+      (p) => p.name.toLowerCase().includes(term) || p.brand?.toLowerCase().includes(term)
+    )
+  }
+
+  res.json(products)
 })
 
 // GET /api/products/:id

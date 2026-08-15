@@ -5,37 +5,29 @@ import EmptyState from '../../components/EmptyState'
 import SearchBar from '../../components/SearchBar'
 import { useProducts } from '../../lib/useProducts'
 import { useCart } from '../../lib/CartContext'
+import { useSavedProducts } from '../../lib/SavedProductsContext'
 
 const CATEGORIES = ['Personal Care', 'Home Cleaning', 'Baby Care']
 
 function BrowsePage() {
   const [activeCategory, setActiveCategory] = useState('All')
   const [query, setQuery] = useState('')
-  // Refetches from /api/products?category=... every time activeCategory
-  // changes — a real server round-trip per filter click, not a
-  // client-side filter of an already-fetched list.
-  const { products, status } = useProducts({ category: activeCategory })
+  // Only updates on SearchBar's onSubmit (not every keystroke), so the API
+  // call fires once per search rather than per character typed.
+  const [submittedQuery, setSubmittedQuery] = useState('')
+  // Refetches from /api/products?category=...&search=... every time
+  // activeCategory or submittedQuery changes — a real server round-trip per
+  // filter/search, not a client-side filter of an already-fetched list.
+  const { products, status } = useProducts({ category: activeCategory, search: submittedQuery })
   const { getQuantity, addToCart, incrementItem, decrementItem } = useCart()
-  // Saved state lives only in memory, per the request — not persisted
-  // anywhere (no localStorage, no backend table yet). Resets on reload.
-  const [savedIds, setSavedIds] = useState(() => new Set())
-
-  const toggleSaved = (id) => {
-    setSavedIds((prev) => {
-      const next = new Set(prev)
-      if (next.has(id)) {
-        next.delete(id)
-      } else {
-        next.add(id)
-      }
-      return next
-    })
-  }
+  // Persisted via Supabase, scoped to the anonymous session token — see
+  // src/lib/SavedProductsContext.jsx. Survives reloads and navigation.
+  const { isSaved, toggleSaved } = useSavedProducts()
 
   return (
     <main className="max-w-[1000px] mx-auto px-[32px] py-[48px]" id="main-content">
       <div className="mb-[32px]">
-        <SearchBar value={query} onChange={setQuery} onSubmit={() => {}} />
+        <SearchBar value={query} onChange={setQuery} onSubmit={setSubmittedQuery} />
       </div>
 
       <div className="flex flex-wrap gap-[8px] mb-[32px]">
@@ -67,7 +59,14 @@ function BrowsePage() {
         />
       )}
 
-      {status === 'ready' && products.length === 0 && (
+      {status === 'ready' && products.length === 0 && submittedQuery && (
+        <EmptyState
+          title="No matches found."
+          description={`Nothing matched "${submittedQuery}". Try a different brand or product name.`}
+        />
+      )}
+
+      {status === 'ready' && products.length === 0 && !submittedQuery && (
         <EmptyState title="No products in this category yet." />
       )}
 
@@ -82,8 +81,8 @@ function BrowsePage() {
               price={product.price}
               badges={product.badges}
               reason={product.reason}
-              saved={savedIds.has(product.id)}
-              onToggleSave={() => toggleSaved(product.id)}
+              saved={isSaved(product.id)}
+              onToggleSave={() => toggleSaved(product)}
               quantity={getQuantity(product.id)}
               onAddToCart={() => addToCart(product)}
               onIncrement={() => incrementItem(product.id)}

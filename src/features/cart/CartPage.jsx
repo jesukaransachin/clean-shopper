@@ -1,6 +1,7 @@
 import Stepper from '../../components/Stepper'
 import EmptyState from '../../components/EmptyState'
 import { useCart } from '../../lib/CartContext'
+import { assetUrl } from '../../lib/assetUrl'
 
 // Fixed placeholder rate, not tied to a real tax API/jurisdiction — out of
 // scope for a course demo (see docs/project-context.md's V1 scope).
@@ -64,7 +65,7 @@ function CartPage({ onNavigate }) {
             <div className="w-[64px] h-[64px] flex-shrink-0 rounded-[8px] overflow-hidden bg-surface-subtle">
               {product.image ? (
                 <img
-                  src={product.image}
+                  src={assetUrl(product.image)}
                   alt={`${product.brand ?? ''} ${product.name}`.trim()}
                   className="w-full h-full object-cover"
                 />

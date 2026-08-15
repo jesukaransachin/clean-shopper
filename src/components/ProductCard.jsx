@@ -1,5 +1,6 @@
 import Badge from './Badge'
 import Stepper from './Stepper'
+import { assetUrl } from '../lib/assetUrl'
 import './ProductCard.css'
 
 function ProductCard({
@@ -22,7 +23,7 @@ function ProductCard({
     <article className="product-card">
       <div className="product-image">
         {image ? (
-          <img src={image} alt={imageAlt} loading="lazy" />
+          <img src={assetUrl(image)} alt={imageAlt} loading="lazy" />
         ) : (
           <span className="product-image-placeholder">No image available</span>
         )}

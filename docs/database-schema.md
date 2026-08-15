@@ -1,5 +1,5 @@
 # Clean Shopper — Database Schema
-**Status:** Partially executed. 6 tables are live in Supabase: `brands`, `products`, `certifications`, `product_certifications` (`supabase/schema.sql`, includes two deviations from this document, noted in §6 below), plus `shoppers` and `cart_items` (`supabase/schema-cart.sql`, executed as originally documented here — no deviations). See `docs/backend.md` for setup. Everything else on this page (`ingredients`, `shopper_avoided_ingredients`, `shopper_trusted_brands`, `shopper_preferred_certifications`, `saved_products`, `research_*`, `comparisons`) is still **proposed and unexecuted** — revisit as those features get real frontend UI.
+**Status:** Partially executed. 7 tables are live in Supabase: `brands`, `products`, `certifications`, `product_certifications` (`supabase/schema.sql`, includes two deviations from this document, noted in §6 below), `shoppers` and `cart_items` (`supabase/schema-cart.sql`, executed as originally documented here — no deviations), and `saved_products` (`supabase/schema-saved-products.sql`, executed as originally documented here — no deviations). See `docs/backend.md` for setup. Everything else on this page (`ingredients`, `shopper_avoided_ingredients`, `shopper_trusted_brands`, `shopper_preferred_certifications`, `research_*`, `comparisons`) is still **proposed and unexecuted** — revisit as those features get real frontend UI.
 **Assumes:** PostgreSQL syntax (`SERIAL`, `TIMESTAMPTZ`, etc.). Confirmed: the executed subset runs on Supabase (hosted Postgres) — see `docs/backend.md`.
 **Source:** `docs/project-context.md` (V1 feature scope) and `docs/component-spec.md` (what the UI actually needs to render — badges, reasoning text, saved state).
 
@@ -29,7 +29,7 @@
 - **`shopper_trusted_brands`** — a shopper's trusted-brand list.
 - **`shopper_preferred_certifications`** — which certifications matter to this shopper (used to rank/explain recommendations, per the brief's "applied to every subsequent recommendation").
 - **`cart_items`** — the persistent cart.
-- **`saved_products`** — the Browse page's "Save to List" heart toggle (`ProductCard`'s `saved`/`onToggleSave` props) — currently in-memory-only React state; this is where it'd actually persist.
+- **`saved_products`** — the Browse page's "Save to List" heart toggle (`ProductCard`'s `saved`/`onToggleSave` props). Executed and persisted via `server/routes/savedProducts.js` and `src/lib/SavedProductsContext.jsx`, same anonymous-shopper pattern as `cart_items`.
 
 ### Research & comparison
 - **`research_queries`** / **`research_results`** — logs what a shopper asked for and what was recommended, with the reasoning text shown in `ProductCard`'s `reason` prop and a rank. This is also where the brief's success metrics ("weekly active users," "frequency of returning to add or compare products") would actually get computed from.
@@ -65,7 +65,7 @@ Certification badges (`verified`/`trusted` variants), by contrast, genuinely are
 
 ## 6. V1 execution: what's live vs. still proposed, and why
 
-`brands`, `products`, `certifications`, `product_certifications`, `shoppers`, and `cart_items` are executed (in Supabase — see `docs/backend.md`). The cart is now real: `server/routes/cart.js` persists it, scoped to the anonymous `shoppers.session_token` from `src/lib/session.js` (a client-generated UUID in localStorage, not a login). Still nothing wired for the rest: the Browse page's "Save to List" heart is in-memory-only React state (not persisted — `saved_products` isn't executed), and there's no ingredient-avoid-matching UI at all. Standing up `ingredients`/`saved_products`/`research_*`/etc. now would mean building tables with no code path that ever reads or writes them — revisit each as its corresponding feature gets built.
+`brands`, `products`, `certifications`, `product_certifications`, `shoppers`, `cart_items`, and `saved_products` are executed (in Supabase — see `docs/backend.md`). The cart and the Browse page's "Save to List" heart are both real: `server/routes/cart.js` and `server/routes/savedProducts.js` persist them, scoped to the anonymous `shoppers.session_token` from `src/lib/session.js` (a client-generated UUID in localStorage, not a login). Still nothing wired for the rest: there's no ingredient-avoid-matching UI at all, and no preferences UI. Standing up `ingredients`/`research_*`/etc. now would mean building tables with no code path that ever reads or writes them — revisit each as its corresponding feature gets built.
 
 **Note:** `shoppers`/`cart_items` were executed via `supabase/schema-cart.sql` exactly as originally documented in §1/§2 above — no deviations, unlike the two below for the original 4-table cut.
 

@@ -4,11 +4,11 @@ import { fetchProducts } from './api'
 // Shared data-fetching hook — used by both Home.jsx and BrowsePage.jsx so
 // neither duplicates the same fetch/loading/error boilerplate.
 //
-// Refetches whenever `category` changes, calling the real
-// /api/products?category=... endpoint server-side (rather than fetching
-// everything once and filtering client-side) — each category change is a
+// Refetches whenever `category` or `search` changes, calling the real
+// /api/products?category=...&search=... endpoint server-side (rather than
+// fetching everything once and filtering client-side) — each change is a
 // real network request, with its own loading state.
-export function useProducts({ category } = {}) {
+export function useProducts({ category, search } = {}) {
   const [products, setProducts] = useState([])
   const [status, setStatus] = useState('loading') // 'loading' | 'error' | 'ready'
 
@@ -16,7 +16,7 @@ export function useProducts({ category } = {}) {
     let cancelled = false
     setStatus('loading')
 
-    fetchProducts({ category })
+    fetchProducts({ category, search })
       .then((data) => {
         if (cancelled) return
         setProducts(data)
@@ -30,7 +30,7 @@ export function useProducts({ category } = {}) {
     return () => {
       cancelled = true
     }
-  }, [category])
+  }, [category, search])
 
   return { products, status }
 }
